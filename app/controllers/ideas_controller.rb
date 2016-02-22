@@ -36,6 +36,13 @@ class IdeasController < ApplicationController
   end
 
   def destroy
+    if user_signed_in?
+      @idea = current_user.ideas.find params[:id]
+      @idea.destroy
+      redirect_to ideas_path, notice: "idea deleted."
+    else
+      redirect_to new_session_path, alert:"you must sign in before deleting an idea"
+    end
   end
 
   private
