@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-
+  match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
+  
   resources :ideas do
     resources :comments, only:[:create, :destroy]
     resources :likes, only: [:create, :destroy]

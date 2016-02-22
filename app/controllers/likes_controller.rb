@@ -6,6 +6,7 @@ class LikesController < ApplicationController
       like = Like.new(idea: @idea, user: current_user)
       if can? :manage, like
         if like.save
+          IdeaMailer.notify_idea_owner(like).deliver_later
           flash[:notice] = "liked"
         else
           flash[:alert] = "unliked"
