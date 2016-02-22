@@ -1,0 +1,14 @@
+<div class="container">
+  <h3 class="header"><%= @user.full_name %></h3>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">Profile</div>
+      <div class="panel-body">
+        <p>Email: <br> <%= @user.email %></p>
+      </div>
+    </div>
+
+      <% if can? :manage, @user %>
+      <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-info"  %>
+      <% end %>
+</div>

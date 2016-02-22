@@ -1,0 +1,35 @@
+<div class="container">
+
+  <h3 class="title">Edit User Profile</h3>
+
+<% if @user.errors.full_messages.size > 0 %>
+  <div class="notice">
+    <%= @user.errors.full_messages.join(",") %>
+  </div>
+<% end %>
+  <div>
+    <%= form_for @user do |f|%>
+    <div class="form-group">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, class:"form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, class:"form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, class:"form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.submit class:"btn btn-info btn-sm" %>
+
+      <%= link_to "Cancel", user_path(@user), class:"btn btn-default btn-sm"%>
+  </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+</div>

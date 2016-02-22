@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IdeaFactory</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'bootstrap', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'bootstrap', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div id="navbar">
+      <ul class="nav navbar-nav navbar-left">
+        <li><%= link_to "Home", root_path %> </li>
+
+        <% if user_signed_in? %>
+        <li><%= link_to "New Idea", new_idea_path %> </li>
+        <li><%= link_to "Log Out", sessions_path, method: :delete %></li>
+
+        <% else %>
+        <li><%= link_to "Log In", new_session_path %></li>
+        <li><%= link_to "Sign Up", new_user_path %></li>
+        <% end %>
+      </ul>
+
+    </div>
+  </nav>
+  <div class="top-notice">
+    <% if notice %>
+    <div class="alert fade in alert-success">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h4><%= notice %></h4>
+    </div>
+
+    <% elsif alert %>
+    <div class="alert fade in alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h4><%= alert %></h4>
+    </div>
+    <% end %>
+  </div>
+
+<%= yield %>
+
+</body>
+</html>

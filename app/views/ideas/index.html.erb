@@ -1,0 +1,32 @@
+<div class="container">
+  <h1>All Ideas</h1>
+
+  <table class="table table-striped">
+    <% @ideas.each do |idea| %>
+    <tr>
+      <td><span style="font-size: 20px;"><%= link_to idea.title, idea_path(idea) %></span>
+        <br> <h4><%= idea.body %></h4>
+        <br> Posted by <%= idea.user.full_name %> <br>
+
+        <% like = idea.is_liked_by(current_user) %>
+        <% if like %>
+        <%= link_to fa_icon("thumbs-up"), idea_like_path(idea, like), method: :delete, class: "like-fav-icon"  %>
+        <% else %>
+        <%= link_to fa_icon("thumbs-o-up"), idea_likes_path(idea), method: :post, class: "like-fav-icon" %>
+        <% end %>
+
+        <span class="badge"><%= idea.likes.count %></span>
+
+        <% member = idea.has_member(current_user) %>
+        <% if member %>
+        <%= link_to fa_icon("user-times"), idea_member_path(idea, member), method: :delete, class: "like-fav-icon"  %>
+        <% else %>
+        <%= link_to fa_icon("user-plus"), idea_members_path(idea), method: :post, class: "like-fav-icon" %>
+        <% end %>
+        <span class="badge"><%= idea.members.count %></span>
+
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
