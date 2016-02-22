@@ -29,6 +29,8 @@ gem 'font-awesome-rails'
 gem 'delayed_job_active_record'
 gem "delayed_job_web"
 gem 'letter_opener'
+gem "paperclip", "~> 4.3"
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

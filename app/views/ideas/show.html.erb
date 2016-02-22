@@ -2,6 +2,8 @@
 
   <h2>Idea: <%= @idea.title %></h2>
   <p><%= @idea.body %></p>
+  <%= image_tag @idea.avatar.url(:medium) %>
+
   <p>Created by: <%= link_to @idea.user.full_name, user_path(@idea.user) %></p>
 
   <div>
@@ -24,9 +26,9 @@
     <%= link_to fa_icon("user-plus"), idea_members_path(@idea), method: :post, class: "like-fav-icon" %>
     <% end %>
     <%= @idea.user_members.all.map{|m| m.full_name}.join(", ") %>
-      <span class="badge"><%= @idea.members.count %></span>
+    <span class="badge"><%= @idea.members.count %></span>
   </div>
-<hr />
+  <hr />
 
   <div class="comments-container">
     <div class="comments">
@@ -35,30 +37,30 @@
         <% @comments.each do |x| %>
         <li><%= x[:body] %> <br>
           <%= x[:created_at] %> by <%=link_to x.user.full_name, user_path(x.user) %>
-            <% if can? :destroy, x %>
-            <%= link_to "Delete", idea_comment_path(@idea, x), method: :delete, data: {confirm: "Are you sure?"}, class:"btn btn-default btn-xs"%>
-            <% end %>
-          </li>
+          <% if can? :destroy, x %>
+          <%= link_to "Delete", idea_comment_path(@idea, x), method: :delete, data: {confirm: "Are you sure?"}, class:"btn btn-default btn-xs"%>
           <% end %>
-        </ul>
+        </li>
         <% end %>
+      </ul>
+      <% end %>
+    </div>
+
+    <div class="comments">
+      <% if user_signed_in? %>
+      <%= form_for [@idea, Comment.new] do |f|  %>
+      <div class="form-group">
+        <%= f.label :body, value="Comment" %><br/>
+        <%= f.text_area :body , class: "form-control", id: "comment-textarea", rows: "3" %>
       </div>
-
-      <div class="comments">
-        <% if user_signed_in? %>
-        <%= form_for [@idea, Comment.new] do |f|  %>
-        <div class="form-group">
-          <%= f.label :body, value="Comment" %><br/>
-          <%= f.text_area :body , class: "form-control", id: "comment-textarea", rows: "3" %>
-        </div>
-        <div class="form-group">
-          <%= f.submit class:"btn btn-info" %>
-        </div>
-        <% end %>
-        <% else %>
-        <%= link_to "Log in", new_session_path %> to leave a comment!</div>
-        <% end %>
+      <div class="form-group">
+        <%= f.submit class:"btn btn-info" %>
       </div>
+      <% end %>
+      <% else %>
+      <%= link_to "Log in", new_session_path %> to leave a comment!</div>
+      <% end %>
+    </div>
 
 
-</div>
+  </div>
